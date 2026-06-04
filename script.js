@@ -810,15 +810,15 @@ function initializeAboutCounters() {
     const startCounter = (counter) => {
         const target = parseFloat(counter.getAttribute('data-target'));
         const isDecimal = target % 1 !== 0;
+        let currentCount = 0;
         
         const updateCount = () => {
-            const count = parseFloat(counter.innerText);
             const inc = target / speed;
 
-            if (count < target) {
-                let nextVal = count + inc;
-                if (nextVal > target) nextVal = target;
-                counter.innerText = isDecimal ? nextVal.toFixed(1) : Math.ceil(nextVal);
+            if (currentCount < target) {
+                currentCount += inc;
+                if (currentCount > target) currentCount = target;
+                counter.innerText = isDecimal ? currentCount.toFixed(1) : Math.ceil(currentCount);
                 setTimeout(updateCount, 15);
             } else {
                 counter.innerText = isDecimal ? target.toFixed(1) : target;
